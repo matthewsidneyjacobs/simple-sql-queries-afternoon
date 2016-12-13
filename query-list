@@ -1,0 +1,134 @@
+Make a person table:
+
+CREATE TABLE people
+(
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name VARCHAR(40),
+  age INTEGER,
+  height INTEGER,
+  city TEXT,
+  favoritecolor TEXT
+  );
+
+//dont need id here bc of auto increment
+INSERT INTO people (name, age, height, city, favoritecolor) VALUES ('paul', 27, 48, 'escondido', 'black');
+INSERT INTO people (name, age, height, city, favoritecolor) VALUES ('jessica', 36, 36, 'phiiladelphia', 'blue');
+INSERT INTO people (name, age, height, city, favoritecolor) VALUES ('ndjia', 21, 40, 'san diego', 'red');
+INSERT INTO people (name, age, height, city, favoritecolor) VALUES ('denny', 2, 12, 'san diego', 'green');
+INSERT INTO people (name, age, height, city, favoritecolor) VALUES ('mandazzi', 13, 60, 'san diego', 'black');
+
+List the people in the Person table by Height from tallest to shortest (descending)
+List the people in the Person table by Height from shortest to tallest (ascending)
+List all the people in the Person table by oldest first
+List all the people in the Person table older than age 20.
+List all the people in the Person table that are exactly 18.
+List all Person that are less than 20 and older than 30.
+List all Person that are not 27 (Use not equals)
+List all Person where their favorite color is not red
+List all Person where their favorite color is not red or blue
+List all Person where their favorite color is orange or green
+List all Person where their favorite color is orange or green blue (use IN)
+List all Person where their favorite color is yellow or purple
+
+
+select * from people order by height desc;
+select * from people order by height asc;
+select * from people order by age desc;
+select * from people where age > 20;
+select * from people where age =18;
+select * from people where age>30 or age<20;
+select * from people where age!=27;
+select * from people where favoritecolor!='red';
+select * from people where favoritecolor!='red' and favoritecolor!='blue';
+select * from people where favoritecolor='orange' or favoritecolor='green';
+select * from people where favoritecolor in ('orange', 'blue', 'green');
+select * from people where favoritecolor='yellow' or favoritecolor='purple';
+
+
+
+Create a table called Orders that records the productName, productPrice, Quantity, and personId
+Add 5 Orders to Order table
+Select all the records from the Order table
+
+Calculate the total number of products Ordered
+Calculate the total Order Price
+Calculate the total Order Price By personId (If you only made orders for 1 person, go add more for the other people)
+
+
+create table orders
+(
+  id integer primary key autoincrement,
+  productName text,
+  productPrice integer,
+  Quantity integer,
+  personid integer
+  );
+
+  insert into orders (productName, productPrice, Quantity, personid) values('cornballer', 25, 10000, 1);
+  insert into orders (productName, productPrice, Quantity, personid) values('magicbullet', 298, 12, 1);
+  insert into orders (productName, productPrice, Quantity, personid) values('ginzoknives', 24, 560, 3);
+  insert into orders (productName, productPrice, Quantity, personid) values('georgeforemangrill', 23, 452, 76);
+  insert into orders (productName, productPrice, Quantity, personid) values('expresso', 45, 1200, 6);
+
+
+select * from orders;
+select sum(Quantity) from orders;
+select productPrice*Quantity from orders;
+select productPrice*Quantity from orders group by personid;
+
+
+Add 3 new Artists to the Artist table
+
+Select the top 10 artists in reverse alphabetical order
+Select the top 5 artists in alphabetical order
+Select all artists that start with the word Black
+Select all artists that contain the word Black
+
+
+insert into Artist (name) values('reel big fish');
+insert into Artist (name) values('mustard plug');
+insert into Artist (name) values('mighty mighty bosstones');
+select * from Artist order by name desc limit 10;
+select * from Artist order by name asc limit 5;
+select * from Artist where name like 'Black%';
+select * from Artist where name like '%Black%';
+
+
+
+Add 2 new Employees to the Employee table
+
+List all Employee first and last names only that live in Calgary
+Find the first and last name for the youngest employee
+Find the first and last name for the oldest employee
+Find everyone that reports to Nancy Edwards (Use the ReportsTo column)
+Count how many people live in Lethbridge
+
+
+ininsert into Employee ( LastName, FirstName, Title, ReportsTo, Address, City, State, Country, PostalCode, Phone, Fax, Email) values( 'Jacobs', 'Matthew', 'guacamole_Expert', 2,  '123 main', 'san diego', 'ca', 'usa', '92101', '4444444444', '12344567', 'msj@email.com');
+insert into Employee (LastName, FirstName, Title,  ReportsTo, Address, City, State, Country, PostalCode, Phone, Fax, Email) values( 'Jabs', 'xavier', 'guacamole_minion', 2, '1970 columbia', 'san diego', 'ca', 'usa', '92101', '4444443453', '12345656', 'msassd@email.com');
+select FirstName, LastName from Employee where City = "Calgary";
+select FirstName, LastName, BirthDate from Employee order by Birthdate desc;
+select FirstName, LastName, BirthDate from Employee order by Birthdate asc;
+select * from Employee where ReportsTo=2;
+select sum(EmployeeId) from Employee where City = "Lethbridge";
+
+
+Use the Invoice table for the following
+
+Count how many orders were made from the USA
+Find the largest order total amount
+Find the smallest order total amount
+Find all orders bigger than $5
+Count how many orders were smaller than $5
+Count how many orders were in CA, TX, or AZ (use IN)
+Get the average total of the orders
+Get the total sum of the orders
+
+select count(*) from Invoice where BillingCountry = "USA";
+select  * from Invoice order by Total desc limit 1;
+select  * from Invoice order by Total asc limit 1;
+select  * from Invoice where Total > 5;
+select  * from Invoice where Total < 5;
+select  count(*) from Invoice where BillingState in ('CA', 'TX', 'AZ');
+select  avg(Total) from Invoice;
+select  sum(Total) from Invoice;
